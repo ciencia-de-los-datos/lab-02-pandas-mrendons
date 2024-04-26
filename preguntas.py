@@ -173,12 +173,22 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    nueva = tbl0.groupby("_c1")["_c2"].apply(lambda x: ":".join(sorted(x.astype(str)))).reset_index() 
-    nueva.columns = ["_c0", "_c1"]
-    nueva = pd.DataFrame(nueva)
-    return nueva
+    #nueva = tbl0.groupby("_c1")["_c2"].apply(lambda x: ":".join(sorted(x.astype(str))))
+    #nueva.columns = ["_c0", "_c1"]
+    #nueva = pd.DataFrame(nueva)
+    #return nueva
 
-#print(pregunta_10())
+    table=tbl0.groupby("_c1")["_c2"].apply(lambda x: ":".join(sorted(x.astype(str))))
+    table.columns=["_c0","_c1"]
+    table=pd.DataFrame(table)
+    return table
+
+    #A10=tbl0.groupby('_c1')['_c2'].apply(lambda x: ':'.join(sorted(x.astype(str))))
+    #A10.columns=['_c0', '_c1']
+    #A10=pd.DataFrame(A10)
+    #return A10
+
+#print(pregunta_10()) 
 
 def pregunta_11():
     """
@@ -218,10 +228,15 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    nueva = tbl2.groupby("_c0")["_c5a", "_c5b"].apply(lambda x: ",".join(sorted(x["_c5a"] + ":" + x["_c5b"].astype(str)))).reset_index()
-    nueva.columns = ["_c0", "_c5"]
-    return nueva 
-print(pregunta_12())
+    #nueva = tbl2.groupby("_c0")["_c5a", "_c5b"].apply(lambda x: ",".join(sorted(x["_c5a"] + ":" + x["_c5b"].astype(str)))).reset_index()
+    #nueva.columns = ["_c0", "_c5"]
+    #return nueva 
+    
+    tbl2['_c5']=tbl2['_c5a']+':'+tbl2['_c5b'].astype(str)
+    A12=tbl2.groupby('_c0')['_c5'].apply(lambda x: ','.join(sorted(x))).reset_index()
+    return A12
+
+#print(pregunta_12())
 
 def pregunta_13():
     """
@@ -242,5 +257,5 @@ def pregunta_13():
     table = merged.groupby("_c1")["_c5b"].sum()
     return table
 
-print(pregunta_13())
+#print(pregunta_13())
 
